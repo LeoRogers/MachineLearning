@@ -18,13 +18,13 @@ To use this script, the directory paths can be modified to point to your own tra
 
 This package contains four modules:
 
-  classifiers: contains classes representing machine learning classifiers
-  
-  io: contains classes related to the input and output of data
-  
-  nlp: contains classes specific to the processing and feature extraction of natural language text
-  
-  test: contains classes used for the testing and evaluation of a classifier
+**classifiers**: Contains classes representing machine learning classifiers
+
+**io**: Contains classes related to the input and output of data
+
+**nlp**: Contains classes specific to the processing and feature extraction of natural language text
+
+**test**: Contains classes used for the testing and evaluation of a classifier
 
 ## TODO:
 1. Naive Bayes Classifier in the classifiers module
