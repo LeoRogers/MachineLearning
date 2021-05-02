@@ -5,7 +5,7 @@ I have started with Logistic Regression and Naive Bayes classifiers for NLP Sent
 
 ## Using the sample scripts
 
-The Python scripts 'imdb_logisticregression_sentiment_analysis.py' and imdb_bayes_sentiment_analysis.py' in the main directory is an example of how to use the ml package to train and test the Logistic Regression classifier. 
+The Python scripts 'imdb_logisticregression_sentiment_analysis.py' and 'imdb_bayes_sentiment_analysis.py' in the main directory is an example of how to use the ml package to train and test the Logistic Regression classifier. 
 
 To use this script, the directory paths can be modified to point to your own training and testing data, or if you wish to use it as is, you can follow these steps to get the Large Movie Review Dataset v1.0:
 1. Go to https://ai.stanford.edu/~amaas/data/sentiment/
