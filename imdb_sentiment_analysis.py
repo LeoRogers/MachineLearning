@@ -1,3 +1,7 @@
+# This is a sample script using the ml package to train and test a Logistic
+# Regression classifier on a set of IMDB reviews
+
+
 import ml.io as io
 import ml.nlp as nlp
 import ml.classifiers as classifiers
