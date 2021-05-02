@@ -33,10 +33,13 @@ class Preprocess:
     """Class for preprocessing text"""
     
     def __init__(self):
-        """Initialises the preprocessing class with three lists strings commonly used in preprocessing."""
+        """Initialises the preprocessing class with three lists strings commonly used in preprocessing.
+
+        Stopword list taken from https://www.textfixer.com/tutorials/common-english-words.txt, except with the suffixes in self.suffixes removed
+        """
         
         self.punctuation_list = [';', '-', '/', '\\', '"', "'", '.', ',', '?', '!', '(', ')', ':', '<br />', '<br >']
-        self.stoplist =['a','able','about','acros','aft','all','almost','also','am','among','an','and','any','are','as','at','be','because','been','but','by','can','cannot','could','dear','did','do','does','eith','else','ev','every','for','from','get','got','had','has','have','he','h','h','him','his','how','howev','i','if','in','into','is','it','its','just','least','let','like','likely','may','me','might','most','must','my','neith','no','nor','not','of','off','often','on','only','or','oth','our','own','rath','said','say','says','she','should','since','so','some','than','that','the','their','them','then','there','these','they','this','tis','to','too','twas','us','wants','was','we','were','what','when','where','which','while','who','whom','why','will','with','would','yet','you','your']
+        self.stoplist = ['a', 'able', 'about', 'acros', 'aft', 'all', 'almost', 'also', 'am', 'among', 'an', 'and', 'any', 'are', 'as', 'at', 'be', 'because', 'been', 'but', 'by', 'can', 'cannot', 'could', 'dear', 'did', 'do', 'doe', 'eith', 'else', 'ev', 'every', 'for', 'from', 'get', 'got', 'had', 'has', 'have', 'he', 'h', 'her', 'him', 'his', 'how', 'howev', 'i', 'if', 'in', 'into', 'is', 'it', 'its', 'just', 'least', 'let', 'like', 'likely', 'may', 'me', 'might', 'most', 'must', 'my', 'neith', 'no', 'nor', 'not', 'of', 'off', 'often', 'on', 'only', 'or', 'oth', 'our', 'own', 'rath', 'said', 'say', 'say', 'she', 'should', 'since', 'so', 'some', 'than', 'that', 'the', 'their', 'them', 'then', 'there', 'these', 'they', 'thi', 'tis', 'to', 'too', 'twa', 'us', 'want', 'was', 'we', 'were', 'what', 'when', 'where', 'which', 'while', 'who', 'whom', 'why', 'will', 'with', 'would', 'yet', 'you', 'your']
         self.suffixes = ['ed ', 'ing ', 'er ', 'ers ', 'ings ', 's ']
         return
 
@@ -59,6 +62,24 @@ class Preprocess:
                     new_list.append(word)
         return new_list
 
+    def min_corpus_freq(self, min_corpus_frequency, vocabulary):
+        """Returns a list of words that appear less than min_corpus_frequency"""
+        new_list = []
+        for word in vocabulary:
+            if vocabulary[word]['total'] < min_corpus_frequency:
+                if word not in self.stoplist:
+                    new_list.append(word)
+        return new_list
+
+    def min_attribute_difference(self, difference, vocabulary, attribute_pair):
+        """Returns a list of words for which difference in the frequency between the two attributes as a proportion of the total frequency is less than the variable 'difference'"""
+        new_list = []
+        for word in vocabulary:
+            if abs(vocabulary[word][attribute_pair[0]] - vocabulary[word][attribute_pair[1]])/vocabulary[word]['total'] < difference:
+                if word not in self.stoplist:
+                    new_list.append(word)
+        return new_list
+
     def remove_stopwords_full(self, data):
         """Removes all instances of the stop words from the full dataset"""
         for attribute in data:
@@ -69,15 +90,15 @@ class Preprocess:
             data.update({attribute: dataset})
         return data
     
-    def default_preprocess(self, attributeled_data):
-        """Preprocesses a attributeled data set using the recommended preprocessing functions
+    def default_preprocess(self, attributed_data):
+        """Preprocesses a attributed data set using the recommended preprocessing functions
 
         For each element in the data set, this function lowers the case, removes the puncutation, removes suffixes, removes stopwords and tokenizes.
-        A dictionary of attributeled preprocessed data is returned."""
+        A dictionary of attributed preprocessed data is returned."""
         preprocessed_training_data = {}
         
-        for attribute in attributeled_data:
-            dataset = copy.copy(attributeled_data[attribute])
+        for attribute in attributed_data:
+            dataset = copy.copy(attributed_data[attribute])
             preprocessed_dataset = []
             for data in dataset:
                 preprocessed_data = data.lower()
@@ -127,7 +148,7 @@ class FeatureExtraction:
         return
     
     def build_vocab(self, dataset):
-        """Takes a tokenized attributeled dataset and returns a attributeled vocabulary"""
+        """Takes a tokenized attributed dataset and returns a attributed vocabulary"""
         vocab = {}
         attribute_list = []
         for attribute in dataset:
@@ -147,7 +168,7 @@ class FeatureExtraction:
                         vocab[word]['total'] += 1
         return vocab
     def assign_freqs(self, data, vocab):
-        """Takes an unattributeled preprocessed datapoint and a attributeled vocabulary and computes the frequency feature.
+        """Takes an unattributed preprocessed datapoint and a attributed vocabulary and computes the frequency feature.
 
         The frequency feature is a dictionary relating each attribute to the sum of the frequencies for that attribute of each unique word in the datapoint"""
         attribute_list = list(vocab.items())[0][1]
@@ -174,7 +195,7 @@ class FeatureExtraction:
     def frequency_feature_set(self, dataset, vocabulary):
         """Returns the 'feature set' relating to the word frequencies in each attribute.
 
-        The 'feature set' is a dictionary in which the attribute of the attributeled data is given as a key, returning a list of feature vectors for each attributeled datapoint
+        The 'feature set' is a dictionary in which the attribute of the attributed data is given as a key, returning a list of feature vectors for each attributed datapoint
         """
         
         feature_set = {}
@@ -205,4 +226,22 @@ class FeatureExtraction:
 
             normalised_feature_set.update({attribute: norm_feature})
         return normalised_feature_set
+
+    def conditional_probabilities(self, vocabulary, attribute_list):
+        """Returns a vocabulary dictionary but with conditional probabilities instead of frequencies
+
+        Uses Laplacian smoothing.
+        """
+        v = len(vocabulary)
+        conditional_probability_vocab = {}
+        for word in vocabulary:
+            conditional_probability = {}
+            for attribute in attribute_list:
+                conditional_probability.update( { attribute: (vocabulary[word][attribute]+1)/(vocabulary[word]['total'] + v) } )
+                
+            conditional_probability_vocab.update({word: conditional_probability})
+            
+        return conditional_probability_vocab
+            
+            
 

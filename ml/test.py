@@ -27,7 +27,7 @@ class Test:
         self.false_neg = 0
         return
 
-    def test(self, classifier, classifier_args, attributes, test_feature_set):
+    def test(self, classifier, attributes, test_feature_set):
         """Tests the labelled test feature set against the given classifier for the given attribute pair.
 
         The classifier must return a boolean, and returning 'True' should correspond to the first attribute in the list.
@@ -35,7 +35,7 @@ class Test:
         """
         for attribute in attributes:
             for feature in test_feature_set[attribute]:
-                classification = classifier(feature, classifier_args, threshold = 0.5)
+                classification = classifier(feature)
                 if classification and attribute == attributes[0]: #Predicted: positive, Actually: positive
                     self.true_pos +=1
                 elif classification and attribute == attributes[1]: #Predicted: positive, Actually: negative
