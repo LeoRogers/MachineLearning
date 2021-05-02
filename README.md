@@ -3,7 +3,7 @@ This is a project I have written for the purpose of revising and learning concep
 
 I have started with Logistic Regression and Naive Bayes classifiers for NLP Sentiment Analysis.
 
-## Using the sample script
+## Using the sample scripts
 
 The Python scripts 'imdb_logisticregression_sentiment_analysis.py' and imdb_bayes_sentiment_analysis.py' in the main directory is an example of how to use the ml package to train and test the Logistic Regression classifier. 
 
