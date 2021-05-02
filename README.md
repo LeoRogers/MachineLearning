@@ -17,9 +17,13 @@ To use this script, the directory paths can be modified to point to your own tra
 ## Contents of the ml package
 
 This package contains four modules:
+
   classifiers: contains classes representing machine learning classifiers
+  
   io: contains classes related to the input and output of data
+  
   nlp: contains classes specific to the processing and feature extraction of natural language text
+  
   test: contains classes used for the testing and evaluation of a classifier
 
 ## TODO:
