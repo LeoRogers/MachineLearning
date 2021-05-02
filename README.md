@@ -28,7 +28,7 @@ This package contains four modules:
 
 ## TODO:
 1. Naive Bayes Classifier in the classifiers module
-2. k-fold cross validation in the test module
-3. import/export a trained model in the io module
-4. import/export preprocessed data in the io module
+2. K-fold cross validation in the test module
+3. Import/export a trained model in the io module
+4. Import/export preprocessed data in the io module
 5. Add more things to this TODO list
