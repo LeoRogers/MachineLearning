@@ -1,11 +1,11 @@
 # MachineLearning
 This is a project I have written for the purpose of revising and learning concepts in Machine Learning.
 
-I have started with a Logistic Regression Classifier for NLP Sentiment Analysis.
+I have started with Logistic Regression and Naive Bayes classifiers for NLP Sentiment Analysis.
 
 ## Using the sample script
 
-The Python script 'imdb_sentiment_analysis.py' in the main directory is an example of how to use the ml package to train and test the Logistic Regression classifier. 
+The Python scripts 'imdb_logisticregression_sentiment_analysis.py' and imdb_bayes_sentiment_analysis.py' in the main directory is an example of how to use the ml package to train and test the Logistic Regression classifier. 
 
 To use this script, the directory paths can be modified to point to your own training and testing data, or if you wish to use it as is, you can follow these steps to get the Large Movie Review Dataset v1.0:
 1. Go to https://ai.stanford.edu/~amaas/data/sentiment/
@@ -27,8 +27,7 @@ This package contains four modules:
 **test**: Contains classes used for the testing and evaluation of a classifier
 
 ## TODO:
-1. Naive Bayes Classifier in the classifiers module
-2. K-fold cross validation in the test module
-3. Import/export a trained model in the io module
-4. Import/export preprocessed data in the io module
-5. Add more things to this TODO list
+1. K-fold cross validation in the test module
+2. Import/export a trained model in the io module
+3. Import/export preprocessed data in the io module
+4. Add more things to this TODO list
