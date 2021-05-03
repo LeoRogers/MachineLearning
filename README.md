@@ -16,7 +16,7 @@ To use this script, the directory paths can be modified to point to your own tra
 
 ## Contents of the ml package
 
-This package contains four modules:
+This package contains the following modules:
 
 **classifiers**: Contains classes representing machine learning classifiers
 
@@ -26,8 +26,13 @@ This package contains four modules:
 
 **test**: Contains classes used for the testing and evaluation of a classifier
 
+And the subpackage **utilities**, which contains:
+
+**mathfuncs**: mathematical functions which might be useful for a variety of classes
+
 ## TODO:
 1. K-fold cross validation in the test module
-2. Import/export a trained model in the io module
-3. Import/export preprocessed data in the io module
-4. Add more things to this TODO list
+2. Learning rate schedule
+3. Import/export a trained model in the io module
+4. Import/export preprocessed data in the io module
+5. Add more things to this TODO list
