@@ -14,6 +14,30 @@ To use this script, the directory paths can be modified to point to your own tra
 4. Extract the .tar file, and then extract the aclImdb directory from the .tar file.
 5. Run the script 'imdb_sentiment_analysis.py'
 
+### Some results:
+The following results were obtained by training both models on half the dataset, and testing on the other half.
+
+The stopword list was taken from https://www.textfixer.com/tutorials/common-english-words.tx, the list of suffixes and punctuation marks were defined by me, and the learning rate for the logistic regression was set at 0.01.
+
+---
+
+**Logistic Regression**:
+
+True Positive: 10260, False Positive: 4429
+
+False Negative: 2240, True Negative: 8071
+
+Sensitivity:  0.82 , Specificity: 0.65 , Precision: 0.7 , Accuracy: 0.73, F1:  0.75
+
+----
+
+**Naive Bayes**:
+True Positive: 10791, False Positive: 2600
+
+False Negative: 1709, True Negative: 9900
+
+Sensitivity:  0.86 , Specificity: 0.79 , Precision: 0.81 , Accuracy: 0.83, F1:  0.83
+
 ## Contents of the ml package
 
 This package contains the following modules:
