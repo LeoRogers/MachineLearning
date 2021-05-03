@@ -25,6 +25,8 @@ NaiveBayes
 """
 import math as m
 import copy
+import ml.utilities.mathfuncs as mf
+
 
 class LogisticRegression:
     """Class representing a logistic regression model"""
@@ -40,11 +42,12 @@ class LogisticRegression:
         uses gradient descent to maximise the log likelihood of a correct classification
         """
         min_attribute_size = min(len(feature_set[k]) for k in feature_set)
-        
+
         for k in range(min_attribute_size):
+
             for (feature,y) in [ (feature_set[attributes[0]][k], 1), (feature_set[attributes[1]][k], 0) ]:
                 
-                h = self.sigmoid(feature)
+                h = mf.sigmoid(feature, self.theta)
                 new_theta = []
                 
                 for i,t in enumerate(self.theta):
@@ -53,28 +56,13 @@ class LogisticRegression:
                 self.theta = copy.copy(new_theta)
         return self.theta
     
-    def sigmoid(self, feature):
-        """Logistic sigmoid function"""
-        
-        product = sum(f*self.theta[i] for i, f in enumerate(feature))
-        
-        try:    # attempt to calculate sigmoid
-            sigmoid = 1/(1 + m.exp(-product))
-            
-        except: # in the event of an overflow, assign 0 or 1 depending on sign of product
-            if product > 0:
-                sigmoid = 1
-            elif product < 0:
-                sigmoid = 0
-            
-        return sigmoid
 
     def classify(self, feature):
         """Classifies a datapoint based on the feature vector and the theta vector.
 
         Threshold for positive classification is set at 0.5 by default. Returns a boolean: True for positive
         classification and False for negative"""
-        sigmoid = self.sigmoid(feature)
+        sigmoid = mf.sigmoid(feature, self.theta)
         
         if sigmoid < self.threshold:
             return False
@@ -113,6 +101,7 @@ class NaiveBayes:
             return True
         elif score < 0:
             return False
+
 
 
             

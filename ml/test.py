@@ -49,10 +49,12 @@ class Test:
     
     def tpr(self):
         ''' True Positive Rate, Sensitivity '''
+
         return self.true_pos/(self.true_pos + self.false_neg)
 
     def tnr(self):
         ''' True Negative Rate, Specificity '''
+        
         return self.true_neg/(self.true_neg + self.false_pos)
 
     def fpr(self):
@@ -64,8 +66,11 @@ class Test:
         return self.false_neg/(self.false_neg + self.true_pos)
         
     def precision(self):
-        '''Precision''' 
-        return self.true_pos/(self.true_pos + self.false_pos)
+        '''Precision'''
+        if self.true_pos == 0:
+            return 0
+        else:
+            return self.true_pos/(self.true_pos + self.false_pos)
 
     def accuracy(self):
         '''Accuracy'''
@@ -81,7 +86,10 @@ class Test:
 
     def fdr(self):
         '''False Discovery Rate'''
-        return self.false_pos/(self.false_pos + self.true_pos)
+        if self.false_pos == 0:
+            return 0
+        else:
+            return self.false_pos/(self.false_pos + self.true_pos)
 
     def csi(self):
         '''Critical Success Index '''
