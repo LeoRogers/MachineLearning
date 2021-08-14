@@ -11,7 +11,7 @@ import ml.test as test
 
 # Set paramaters
 print('Parameters:')
-n_datapoints = 12500 
+n_datapoints = 100
 print(n_datapoints, ' data points per attribute')
 
 attribute_pair = ['positive', 'negative']
